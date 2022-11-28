@@ -1,11 +1,15 @@
 package com.jr.servelet;
 
+import com.jr.biz.impl.StudentBizimpl;
+import com.jr.entry.Student;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 
 @WebServlet("/asd")
@@ -35,10 +39,43 @@ public class Testservelet extends HttpServlet {
         }
 
     }
-    public void  register(HttpServletRequest req, HttpServletResponse resp){
+    public void  register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
+        int studentid = Integer.parseInt(req.getParameter("studentid"));
+        String studentname=req.getParameter("studentname");
+        String studentclass=req.getParameter("studentclass");
+        StudentBizimpl ddi = new StudentBizimpl();
+        Student student = new Student();
+        student.setStudentid(studentid);
+        student.setStudentname(studentname);
+        student.setStudentclass(studentclass);
+        boolean boo = ddi.register(student);
+        if(boo){
+           resp.sendRedirect("Login.jsp");
+        }else{
+            resp.getWriter().println("注册失败");
+        }
+
 
     }
-    public void  Login(HttpServletRequest req, HttpServletResponse resp){
+    public void Login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
+        int studentid = Integer.parseInt(req.getParameter("studentid"));
+        String studentname=req.getParameter("studentname");
+        StudentBizimpl ddi = new StudentBizimpl();
+        Student student = new Student();
+        student.setStudentid(studentid);
+        student.setStudentname(studentname);
+        boolean boo = ddi.Login(student);
+        if(boo){
+            resp.getWriter().println("登陆成功");
+        }else{
+            resp.getWriter().println("登入失败");
+        }
 
     }
     public void  showall(HttpServletRequest req, HttpServletResponse resp){
@@ -55,7 +92,7 @@ public class Testservelet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        System.out.println("236");
     }
 
     @Override

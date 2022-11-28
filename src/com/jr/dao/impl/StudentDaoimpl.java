@@ -18,12 +18,36 @@ public class StudentDaoimpl implements StudentDao {
 
     @Override
     public int register(Student student) {
-        return 0;
+        String sql = "insert into student values(?,?,?)";
+        return upd(sql, student.getStudentid(), student.getStudentname(),student.getStudentclass());
     }
 
     @Override
     public Student Login(Student student) {
-        return null;
+        String sql = "SELECT * FROM student WHERE studentid=? and studentname=?";
+        try {
+            con=DBHelper.getconn();
+            ps=con.prepareStatement(sql);
+            ps.setInt(1,student.getStudentid());
+            ps.setString(2,student.getStudentname());
+            rs=ps.executeQuery();
+            while (rs.next()){
+                student1=new Student();
+                student1.setStudentid(rs.getInt(1));
+                student1.setStudentname(rs.getString(2));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+        return student1;
     }
 
     @Override
