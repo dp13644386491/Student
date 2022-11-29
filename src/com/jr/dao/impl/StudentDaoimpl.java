@@ -78,15 +78,37 @@ public class StudentDaoimpl implements StudentDao {
         }
         return  list;
     }
-
     @Override
     public Student showone(Student student) {
-        return null;
+        try {
+            con = DBHelper.getconn();
+            String sql = "SELECT * FROM student WHERE studentid=?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,student.getStudentid());
+            rs = ps.executeQuery();
+            while (rs.next()){
+                student1 = new Student();
+                student1.setStudentid(rs.getInt(1));
+                student1.setStudentname(rs.getString(2));
+                student1.setStudentclass(rs.getString(3));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBHelper.closeAll(rs,ps,con);
+        }
+        return student1;
     }
 
     @Override
     public int update(Student student) {
-        return 0;
+        String sql = "UPDATE student SET studentname=?,studentclass=? WHERE studentid=? ";
+        int i = upd(sql,student.getStudentname(),student.getStudentclass(),student.getStudentid());
+        return i;
     }
 
     @Override

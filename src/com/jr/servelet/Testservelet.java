@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
@@ -99,12 +100,39 @@ public class Testservelet extends HttpServlet {
             showall(req, resp);
         }
     }
-        public void showone (HttpServletRequest req, HttpServletResponse resp){
+    public void  showone(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+        int studentid = Integer.parseInt(request.getParameter("studentid"));
+        StudentBizimpl sbi = new StudentBizimpl();
+        Student student = new Student();
+        student.setStudentid(studentid);
+        Student student1 = sbi.showone(student);
+        HttpSession session = request.getSession();
+        session.setAttribute("student",student1);
+        request.getRequestDispatcher("change.jsp").forward(request,response);
+    }
 
+    public void  update(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+        int studentid = Integer.parseInt(request.getParameter("studentid"));
+        String studentname = request.getParameter("studentname");
+        String studentclass = request.getParameter("studentclass");
+        StudentBizimpl sbi = new StudentBizimpl();
+        Student student = new Student();
+        student.setStudentid(studentid);
+        student.setStudentname(studentname);
+        student.setStudentclass(studentclass);
+        boolean boo = sbi.update(student);
+        if(boo){
+            request.getRequestDispatcher("asd?i=2").forward(request,response);
+        }else{
+            request.getRequestDispatcher("change.jsp").forward(request,response);
         }
-        public void update (HttpServletRequest req, HttpServletResponse resp){
-
-        }
+    }
         @Override
         protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             System.out.println("236");

@@ -39,7 +39,7 @@
     </orderEntry>
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="lib (2)" level="project" />
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="jar://C:/apache-tomcat-8.5.38/lib/servlet-api.jar!/" />
@@ -50,7 +50,7 @@
     </orderEntry>
     <orderEntry type="library" name="lib (3)" level="project" />
     <orderEntry type="library" name="lib (4)" level="project" />
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="jar://D:/apache-tomcat-8.5.38/lib/servlet-api.jar!/" />
@@ -59,7 +59,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
           <root url="jar://D:/apache-tomcat-8.5.38/lib/jsp-api.jar!/" />
@@ -68,5 +68,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="lib (5)" level="project" />
+    <orderEntry type="library" name="lib (6)" level="project" />
   </component>
 </module>

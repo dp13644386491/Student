@@ -39,7 +39,7 @@
             <td>${s.studentname}</td>
             <td>${s.studentclass}</td>
             <td></td>
-            <td><a href="asd?i=6&studentid=${s.studentid}">编辑 &nbsp;</a>
+            <td><a href="asd?i=4&studentid=${s.studentid}">编辑 &nbsp;</a>
                 <a onclick='show()' href='asd?i=3&studentid=${s.studentid}'>删除</a></td>
         </tr>
     </c:forEach>
