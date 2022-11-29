@@ -135,7 +135,7 @@ public class Testservelet extends HttpServlet {
     }
         @Override
         protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            System.out.println("236");
+
         }
 
         @Override
