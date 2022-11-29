@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDaoimpl implements StudentDao {
@@ -52,7 +53,30 @@ public class StudentDaoimpl implements StudentDao {
 
     @Override
     public List<Student> showall() {
-        return null;
+        Student stu = null;
+        List<Student> list = new ArrayList<>();
+        try {
+            con = DBHelper.getconn();
+            String sql = "select * from student";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                stu = new Student();
+                stu.setStudentid(rs.getInt("studentid"));
+                stu.setStudentname(rs.getString("studentname"));
+                stu.setStudentclass(rs.getString("studentclass"));
+                list.add(stu);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBHelper.closeAll(rs,ps,con);
+        }
+        return  list;
     }
 
     @Override
@@ -67,7 +91,23 @@ public class StudentDaoimpl implements StudentDao {
 
     @Override
     public int delet(Student student) {
-        return 0;
+        int i = 0;
+        try {
+            con = DBHelper.getconn();
+            String sql = "delete  from student where studentid=?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, student.getStudentid());
+            i = ps.executeUpdate();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBHelper.closeAll(rs, ps, con);
+        }
+        return i;
     }
     public int upd(String sql,Object...objs){
 
